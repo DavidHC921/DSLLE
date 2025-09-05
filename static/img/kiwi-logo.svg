@@ -1,0 +1,81 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular con degradado kiwi -->
+  <defs>
+    <radialGradient id="g" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#C9F5A6"/>
+      <stop offset="55%" stop-color="#8EE263"/>
+      <stop offset="100%" stop-color="#65C43A"/>
+    </radialGradient>
+    <linearGradient id="seed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A0A0A"/>
+      <stop offset="100%" stop-color="#2B2B2B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Disco kiwi -->
+  <circle cx="256" cy="256" r="220" fill="url(#g)"/>
+  <!-- Anillo/blanco central -->
+  <circle cx="256" cy="256" r="110" fill="#F7FFF1"/>
+  <!-- Pulpa clara -->
+  <circle cx="256" cy="256" r="90" fill="#E8FFD8"/>
+
+  <!-- Semillas (distribuidas en círculo) -->
+  <!-- 16 semillas -->
+  <g transform="translate(256,256)">
+    <!-- Repite 16 veces con rotación -->
+    <g transform="rotate(0)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(22.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(45)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(67.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(90)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(112.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(135)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(157.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(180)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(202.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(225)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(247.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(270)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(292.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(315)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+    <g transform="rotate(337.5)">
+      <ellipse cx="0" cy="-135" rx="10" ry="18" fill="url(#seed)"/>
+    </g>
+  </g>
+
+  <!-- Brillo sutil -->
+  <ellipse cx="206" cy="206" rx="110" ry="70" fill="#FFFFFF" opacity="0.18"/>
+
+  <!-- Borde suave -->
+  <circle cx="256" cy="256" r="220" stroke="#3E8D2A" stroke-opacity="0.25" stroke-width="8"/>
+</svg>

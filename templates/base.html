@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}DSLLE · Verde Kiwi{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Estilos -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/kiwi-logo.svg') }}">
+</head>
+<body>
+
+  <!-- Anuncio superior -->
+  <div class="announce">
+    🌿 Bienvenido a <strong>ALPINITO · KIWI COMPANY</strong> — Red de bienestar masculino.
+  </div>
+
+  <!-- Barra de navegación -->
+  <header class="topbar">
+<nav class="nav">
+  <!-- Marca a la izquierda -->
+  <a class="brand" href="{{ url_for('home') }}">
+    <img class="brand-logo" src="{{ url_for('static', filename='img/kiwi-logo.svg') }}" alt="Kiwi" />
+    <span>KIWI</span>
+  </a>
+
+  <!-- Contenedor central + carrito a la derecha -->
+  <div style="position:relative; flex:1;">
+    <!-- Menú centrado -->
+    <div style="position:absolute; left:40%; transform:translateX(-50%); display:flex; gap:24px; align-items:center;">
+      <a href="{{ url_for('home') }}">Inicio</a>
+      <a href="{{ url_for('about') }}">Sobre Nosotros</a>
+      <a href="{{ url_for('catalogo') }}">Catálogo</a>
+      <a href="{{ url_for('chat') }}">Chat</a>
+      <a href="{{ url_for('contact') }}">Contáctenos</a>
+    </div>
+
+    <!-- Carrito a la derecha con contador -->
+    <a href="{{ url_for('catalogo') }}"
+       style="position:absolute; right:0; top:50%; transform:translateY(-50%);
+              display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+      <span style="font-size:20px; line-height:1">🛒</span>
+      <span style="min-width:22px; height:22px; padding:0 6px; border-radius:999px;
+                   background:var(--kiwi-600); color:#fff; display:inline-flex;
+                   align-items:center; justify-content:center; font-weight:700; font-size:.85rem;">
+        {{ cart_count }}
+      </span>
+    </a>
+  </div>
+</nav>
+
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- ===== Footer completo ===== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <!-- Columna 1: Marca y contacto -->
+      <div class="f-col">
+        <div class="f-brand">
+          <img src="{{ url_for('static', filename='img/kiwi-logo.svg') }}" alt="KIWI" class="f-brand-logo">
+          <div>
+            <strong>DSLLE · KIWI COMPANY</strong>
+            <div class="f-muted">Red de bienestar masculino</div>
+          </div>
+        </div>
+
+        <ul class="f-list">
+          <li><span class="f-label">Email:</span> <a href="mailto:hola@dslle.co">hola@dslle.co</a></li>
+          <li><span class="f-label">Teléfono:</span> <a href="tel:+573001112233">+57 300 111 22 33</a></li>
+          <li><span class="f-label">Horario:</span> Lun–Sáb 8:00–18:00</li>
+          <li><span class="f-label">Dirección:</span> Medellín, Colombia</li>
+        </ul>
+
+        <div class="f-social">
+          <a href="#" aria-label="Facebook" class="ico fb">f</a>
+          <a href="#" aria-label="Instagram" class="ico ig">◎</a>
+          <a href="#" aria-label="X" class="ico tw">x</a>
+          <a href="#" aria-label="TikTok" class="ico tt">t</a>
+          <a href="#" aria-label="YouTube" class="ico yt">▶</a>
+          <a href="#" aria-label="LinkedIn" class="ico li">in</a>
+        </div>
+      </div>
+
+      <!-- Columna 2: Navegación -->
+      <div class="f-col">
+        <h4>Explorar</h4>
+        <ul class="f-links">
+          <li><a href="{{ url_for('home') }}">Inicio</a></li>
+          <li><a href="{{ url_for('about') }}">Sobre Nosotros</a></li>
+          <li><a href="{{ url_for('catalogo') }}">Catálogo</a></li>
+          <li><a href="{{ url_for('chat') }}">Chat</a></li>
+          <li><a href="{{ url_for('contact') }}">Contáctenos</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Ayuda -->
+      <div class="f-col">
+        <h4>Ayuda</h4>
+        <ul class="f-links">
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Política de envíos</a></li>
+          <li><a href="#">Cambios y devoluciones</a></li>
+          <li><a href="#">Privacidad y datos</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Newsletter -->
+      <div class="f-col">
+        <h4>Suscríbete</h4>
+        <p class="f-muted">Ofertas, lanzamientos y consejos de cuidado personal.</p>
+        <form class="f-news" method="post" action="{{ url_for('contact') }}">
+          <input type="email" name="correo" placeholder="Tu correo" required>
+          <button class="btn btn-kiwi" type="submit">Unirme</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-mid">
+      <!-- Métodos de pago -->
+      <div class="payline">
+        <span class="f-muted">Medios de pago:</span>
+        <span class="pay-badge">VISA</span>
+        <span class="pay-badge">Mastercard</span>
+        <span class="pay-badge">AMEX</span>
+        <span class="pay-badge">PSE</span>
+        <span class="pay-badge">Efecty</span>
+        <span class="pay-badge">Davivienda</span>
+      </div>
+
+    <div class="footer-bottom">
+      <div>© {{ 2025 }} DSLLE · Todos los derechos reservados.</div>
+      <div class="legal-links">
+        <a href="#">Mapa del sitio</a>
+        <a href="#">Accesibilidad</a>
+        <a href="#">Cookies</a>
+      </div>
+    </div>
+  </footer>
+  <!-- ===== /Footer completo ===== -->
+
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Contáctenos · DSLLE{% endblock %}
+{% block content %}
+
+  <!-- Encabezado + volver -->
+  <header class="card contact-head">
+    <h1>Contáctenos</h1>
+    <div class="btn-row">
+      <a class="btn btn-ghost" href="{{ url_for('home') }}">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <!-- Mensajes flash -->
+  {% with msgs = get_flashed_messages() %}
+    {% if msgs %}
+      <div class="alert success">
+        {% for m in msgs %}<div>{{ m }}</div>{% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Layout 2 columnas -->
+  <section class="contact-grid">
+    <!-- Columna izquierda: formulario -->
+    <div class="card">
+      <h3 style="margin-top:0">Escríbenos</h3>
+      <form method="post" action="{{ url_for('contact') }}" class="contact-form">
+        <label class="form-field">
+          <span>Nombre completo</span>
+          <input class="form-control" type="text" name="nombre" required>
+        </label>
+
+        <label class="form-field">
+          <span>Correo electrónico</span>
+          <input class="form-control" type="email" name="correo" required>
+        </label>
+
+        <label class="form-field">
+          <span>Mensaje</span>
+          <textarea class="form-control" name="mensaje" rows="6" required></textarea>
+        </label>
+
+        <div class="btn-row">
+          <button class="btn btn-kiwi" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Columna derecha: equipo + datos -->
+    <aside class="card">
+      <h3 style="margin-top:0">Equipo Directivo</h3>
+      <ul class="team-list">
+        <li class="team-item">
+          <div class="avatar">LA</div>
+          <div><strong>Liliana Andrea Arroyave Munera</strong><div class="muted">CEO</div></div>
+        </li>
+        <li class="team-item">
+          <div class="avatar">DH</div>
+          <div><strong>David Hernandez Cardona</strong><div class="muted">CTO</div></div>
+        </li>
+        <li class="team-item">
+          <div class="avatar">EP</div>
+          <div><strong>Elizabeth Patiño Mesa</strong><div class="muted">CFO</div></div>
+        </li>
+        <li class="team-item">
+          <div class="avatar">LV</div>
+          <div><strong>Luis Alfonso Velez Heredia</strong><div class="muted">COO</div></div>
+        </li>
+        <li class="team-item">
+          <div class="avatar">SG</div>
+          <div><strong>Simon Gonzalez Pajon</strong><div class="muted">CMO</div></div>
+        </li>
+      </ul>
+
+      <hr class="soft">
+
+      <h3>Contacto</h3>
+      <ul class="f-list">
+        <li><span class="f-label">Email:</span> <a href="mailto:hola@dslle.co">hola@dslle.co</a></li>
+        <li><span class="f-label">Teléfono:</span> <a href="tel:+573001112233">+57 300 111 22 33</a></li>
+        <li><span class="f-label">Dirección:</span> Medellín, Colombia</li>
+      </ul>
+    </aside>
+  </section>
+
+{% endblock %}

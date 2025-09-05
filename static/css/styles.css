@@ -1,0 +1,360 @@
+/* ======================================================
+   TEMA DSLLE · VERDE KIWI — Estilos base
+   ====================================================== */
+:root{
+  --kiwi-600:#65C43A;      /* verde kiwi principal */
+  --kiwi-700:#4CAF32;      /* hover */
+  --kiwi-50:#EAF8E3;       /* fondos suaves */
+  --ink:#111;              /* texto principal */
+  --muted:#666;            /* texto secundario */
+  --card:#fff;             /* fondo tarjetas */
+  --shadow:0 8px 28px rgba(0,0,0,.08);
+  --radius:14px;
+  --space:24px;
+  --font:"Inter", system-ui, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--font); background:#f7f7f7; color:var(--ink); line-height:1.4}
+
+/* ======================================================
+   Barras superiores / Navegación
+   ====================================================== */
+.announce{
+  background:var(--kiwi-50);
+  color:var(--ink);
+  padding:8px 16px;
+  text-align:center;
+  font-size:.95rem;
+}
+.topbar{background:#fff; border-bottom:3px solid var(--kiwi-600);}
+.nav{
+  display:flex; gap:24px; align-items:center;
+  padding:16px 20px; max-width:1200px; margin:0 auto;
+  justify-content:flex-start !important;   /* marca a la izquierda */
+}
+.nav a{color:var(--ink); text-decoration:none; opacity:.9}
+.nav a:hover{opacity:1; text-decoration:underline}
+.nav a:focus-visible,.btn:focus-visible{
+  outline:3px solid var(--kiwi-600); outline-offset:2px; border-radius:10px;
+}
+.brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.5px;}
+.brand-logo{height:56px; width:auto; display:block;}   /* MÁS GRANDE */
+.brand span{
+  font-weight:900; letter-spacing:1px; color:var(--kiwi-600);
+  font-size:1.5rem;                               /* TEXTO MÁS GRANDE */
+}
+.spacer{display:none;}                             /* que los links queden junto a la marca */
+
+/* ======================================================
+   Contenedores / Tarjetas
+   ====================================================== */
+.container{max-width:1200px; margin:18px auto; padding:0 16px;}
+.card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:var(--space);}
+
+/* ======================================================
+   Botones
+   ====================================================== */
+.btn{
+  display:inline-block; padding:12px 18px; border-radius:12px;
+  border:0; cursor:pointer; text-decoration:none; font-weight:600
+}
+.btn-kiwi{background:var(--kiwi-600); color:#fff;}
+.btn-kiwi:hover{background:var(--kiwi-700);}
+.btn-ghost{background:transparent; border:2px solid var(--ink); color:var(--ink);}
+.btn-ghost:hover{filter:brightness(.95);}
+
+/* ======================================================
+   HERO portada (imagen/logo + texto)
+   ====================================================== */
+.hero{
+  display:grid; grid-template-columns:1fr 1.2fr;  /* imagen izquierda, texto derecha */
+  gap:28px; align-items:center;
+}
+.hero h1{font-size:clamp(28px,4vw,44px); line-height:1.08; margin:.2rem 0 1rem;}
+.hero p{color:var(--muted); font-size:1.05rem; margin:0 0 1.2rem;}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
+
+/* panel visual izquierda */
+.hero .media{
+  position:relative; min-height:320px; border-radius:20px; overflow:hidden;
+  background:linear-gradient(135deg,#fdfdfd, var(--kiwi-50));
+  box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center;
+}
+.hero .media img{
+  width:100%; max-width:360px; height:auto; display:block; object-fit:contain; opacity:.98;
+}
+
+/* ======================================================
+   Categorías (chips)
+   ====================================================== */
+.cats{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px;}
+.cats a{
+  color:var(--ink); text-decoration:none; background:#fff;
+  padding:8px 12px; border-radius:999px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.cats a:hover{background:var(--kiwi-50);}
+
+/* ======================================================
+   Ajustes generales
+   ====================================================== */
+main{margin-top:16px;}
+
+/* ======================================================
+   Masthead (Kiwi arriba)
+   ====================================================== */
+.masthead{
+  background:#fff;
+  border-bottom:2px solid var(--kiwi-50);
+  display:flex; justify-content:center; align-items:center;
+  padding:10px 0;
+}
+.masthead img{ height:56px; width:auto; }
+
+/* ======================================================
+   Banner de 3 imágenes
+   ====================================================== */
+.banner3{ margin-top:22px; }
+.banner3__grid{
+  display:grid; gap:16px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.banner3__grid img{
+  width:100%; height:220px; object-fit:cover;
+  border-radius:14px; box-shadow:var(--shadow);
+}
+
+/* ======================================================
+   Franja de marcas abajo
+   ====================================================== */
+.brand-strip{
+  background:#fff; border-top:3px solid var(--kiwi-600);
+  margin-top:32px;
+}
+.brand-strip__inner{
+  max-width:1200px; margin:0 auto; padding:14px 20px;
+  display:flex; align-items:center; justify-content:center; gap:18px;
+}
+.brand-strip__inner img{ height:32px; width:auto; display:block; }
+.brand-strip .divider{
+  color:#a0a0a0; font-weight:700; font-size:20px; line-height:1;
+}
+
+/* ======================================================
+   Centrado de títulos al estilo Avon
+   ====================================================== */
+.center-desktop{ text-align:left; }
+@media (min-width: 1000px){
+  .center-desktop{ text-align:center; }
+  .hero-cta.center-desktop{ justify-content:center; display:flex; }
+  .cats--center{ justify-content:center; }
+}
+
+/* ======================================================
+   Responsive general
+   ====================================================== */
+@media (max-width: 899px){
+  .brand-logo{height:40px;}           /* un poco más grande que antes en móvil */
+  .masthead img{ height:46px; }
+  .hero{grid-template-columns:1fr;}   /* pila imagen y texto */
+  .hero .media{min-height:220px;}
+  .hero h1{font-size:clamp(26px,6vw,36px);}
+  .banner3__grid{ grid-template-columns:1fr; }
+  .banner3__grid img{ height:180px; }
+}
+
+/* ===== Carrusel ===== */
+.carousel{
+  position:relative;
+  overflow:hidden;
+  padding:0;
+}
+.car-viewport{ overflow:hidden; border-radius:12px; }
+.car-track{
+  display:flex; transition:transform .5s ease; will-change:transform;
+}
+.car-slide{ min-width:100%; user-select:none; }
+.car-slide img{ width:100%; height:360px; object-fit:cover; display:block; }
+
+/* Botones flecha */
+.car-btn{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  background:#fff; border:0; width:42px; height:42px; border-radius:50%;
+  box-shadow:0 6px 16px rgba(0,0,0,.15); cursor:pointer; font-size:28px; line-height:42px;
+  text-align:center; color:#333;
+}
+.car-btn:hover{ filter:brightness(.95); }
+.car-btn.prev{ left:10px; }
+.car-btn.next{ right:10px; }
+
+/* Dots/paginación */
+.car-dots{ display:flex; gap:10px; justify-content:center; margin:12px 0 2px; }
+.car-dots button{
+  width:10px; height:10px; border-radius:999px; border:0; cursor:pointer; background:#cfd6cf;
+}
+.car-dots button.is-active{ background:var(--kiwi-600); }
+
+/* Responsive carrusel */
+@media (max-width: 899px){
+  .car-slide img{ height:220px; }
+}
+
+/* ===== Footer ===== */
+.site-footer{
+  margin-top:32px; background:#fff; color:var(--ink);
+  border-top:3px solid var(--kiwi-600);
+  box-shadow:0 -8px 24px rgba(0,0,0,.04);
+}
+.site-footer a{ color:var(--ink); text-decoration:none; }
+.site-footer a:hover{ text-decoration:underline; }
+.f-muted{ color:#6a6a6a; }
+
+.footer-top{
+  display:grid; gap:26px; grid-template-columns:2fr 1fr 1fr 1.4fr;
+  max-width:1200px; margin:0 auto; padding:28px 20px;
+}
+.f-col h4{ margin:0 0 8px; font-size:1rem; }
+.f-col p{ margin:0 0 12px; }
+.f-links, .f-list{ margin:0; padding:0; list-style:none; }
+.f-links li, .f-list li{ margin:8px 0; }
+.f-label{ font-weight:600; }
+
+.f-brand{ display:flex; gap:12px; align-items:center; margin-bottom:10px; }
+.f-brand-logo{ height:42px; width:auto; display:block; }
+
+.f-social{ display:flex; gap:10px; margin-top:10px; }
+.ico{
+  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:50%; background:#f0f0f0; color:#111; font-weight:800;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.ico.fb{ background:#e8f0ff; }
+.ico.ig{ background:#ffeef6; }
+.ico.tw{ background:#eef1f4; }
+.ico.tt{ background:#f3f3f3; }
+.ico.yt{ background:#fff0f0; }
+.ico.li{ background:#eef6ff; }
+
+.f-news{ display:flex; gap:8px; }
+.f-news input{ flex:1; padding:10px 12px; border-radius:10px; border:1.5px solid #ddd; }
+.mt16{ margin-top:16px; }
+
+.f-badges{ display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
+.store-badge{
+  display:inline-block; padding:8px 12px; border-radius:10px; background:#111; color:#fff;
+  font-weight:600; box-shadow:0 4px 14px rgba(0,0,0,.15);
+}
+
+.footer-mid{
+  border-top:1px solid #eee; border-bottom:1px solid #eee;
+  padding:14px 20px; background:#fafafa;
+}
+.footer-mid, .footer-bottom{ max-width:1200px; margin:0 auto; }
+.payline{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.pay-badge{
+  background:#fff; border:1px solid #e6e6e6; padding:6px 10px; border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.04); font-weight:600;
+}
+.seals{ display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; }
+.seal{
+  padding:6px 10px; border-radius:8px; border:1px dashed #cdd8cd; color:#3b3b3b; background:#fff;
+}
+
+.footer-bottom{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 20px; font-size:.95rem; gap:10px;
+}
+.legal-links{ display:flex; gap:14px; }
+
+/* Responsive footer */
+@media (max-width: 999px){
+  .footer-top{ grid-template-columns:1fr 1fr; }
+}
+@media (max-width: 640px){
+  .footer-top{ grid-template-columns:1fr; }
+  .footer-bottom{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ===== Catálogo ===== */
+.catalog-grid{
+  display:grid; gap:18px; margin-top:16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.prod-card{
+  background:#fff; border-radius:14px; box-shadow:var(--shadow);
+  overflow:hidden; display:flex; flex-direction:column;
+}
+.prod-card img{ width:100%; height:180px; object-fit:cover; background:#f3f5f3; }
+.prod-info{ padding:14px; }
+.prod-title{ margin:0 0 4px; font-size:1.05rem; }
+.price{ font-weight:800; color:#1b1b1b; }
+.add-form{ margin-top:auto; padding:14px; }
+
+/* ===== Zoom/Lightbox para catálogo ===== */
+.prod-card img{ cursor: zoom-in; }
+.lb{
+  position:fixed; inset:0; display:none;
+  align-items:center; justify-content:center;
+  background:rgba(0,0,0,.65); z-index:9999; padding:20px;
+}
+.lb.show{ display:flex; }
+.lb img{
+  max-width:90vw; max-height:85vh; border-radius:14px;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+  transform:scale(.9); opacity:0; transition:transform .2s ease, opacity .2s ease;
+}
+.lb.show img{ transform:scale(1); opacity:1; }
+.lb-close{
+  position:absolute; top:16px; right:16px; width:40px; height:40px;
+  border:0; border-radius:50%; background:#fff; color:#111; cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.3); font-size:22px; line-height:40px;
+}
+
+/* ===== Contacto moderno ===== */
+.contact-head{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+.btn-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+
+.alert{margin:12px 0; padding:12px 14px; border-radius:10px;}
+.alert.success{background:var(--kiwi-50); border:1px solid var(--kiwi-600);}
+
+.contact-grid{
+  display:grid; gap:18px; margin-top:16px;
+  grid-template-columns: 1.2fr 1fr;
+}
+.form-field{display:flex; flex-direction:column; gap:6px; margin-bottom:12px;}
+.form-control{
+  padding:12px 12px; border-radius:12px; border:1.5px solid #e4e4e4; background:#fff;
+  font-size:1rem; outline:none; transition:border-color .15s, box-shadow .15s;
+}
+.form-control:focus{
+  border-color:var(--kiwi-600);
+  box-shadow:0 0 0 3px rgba(101,196,58,.15);
+}
+
+.team-list{list-style:none; padding:0; margin:8px 0 0; display:grid; gap:10px;}
+.team-item{
+  display:flex; align-items:center; gap:10px; padding:8px 10px;
+  background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+.avatar{
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:800; color:#fff;
+  background:linear-gradient(135deg, var(--kiwi-600), #4CAF32);
+}
+.muted{color:#666; font-size:.9rem;}
+.soft{border:0; border-top:1px solid #eee; margin:14px 0;}
+
+@media (max-width: 900px){
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+/* ===== Video responsive (Sobre nosotros) ===== */
+.video-card .video-el{
+  width:100%;
+  aspect-ratio:16/9;          /* mantiene 16:9 */
+  border-radius:14px;
+  background:#000;
+  box-shadow:var(--shadow);
+}

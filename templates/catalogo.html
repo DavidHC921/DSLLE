@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Catálogo · DSLLE{% endblock %}
+{% block content %}
+
+  <header class="card" style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+    <h1 style="margin:0;">Catálogo</h1>
+    <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="{{ url_for('home') }}">← Volver al inicio</a>
+      <a class="btn btn-ghost" href="{{ url_for('catalogo_generar') }}">Generar PDF</a>
+      <a class="btn btn-kiwi" href="{{ url_for('catalogo_export_excel') }}">Exportar a Excel</a>
+      <a class="btn btn-ghost" href="{{ url_for('cart_reset') }}">🧹</a>
+    </div>
+  </header>
+
+  <!-- Grid de productos -->
+  <section class="catalog-grid">
+    {% for p in products %}
+      <article class="prod-card">
+        <img class="zoomable"
+            src="{{ url_for('static', filename=p.image) }}"
+            alt="{{ p.name }}"
+            data-fallback="{{ url_for('static', filename='img/kiwi-logo.svg') }}"
+            onerror="this.src=this.dataset.fallback">
+        <div class="prod-info">
+          <h3 class="prod-title">{{ p.name }}</h3>
+          <div class="price">${{ "{:,.0f}".format(p.price) }}</div>
+        </div>
+        <form class="add-form" method="post" action="{{ url_for('add_to_cart', pid=p.id) }}">
+          <button class="btn btn-kiwi" type="submit">Añadir al carrito</button>
+        </form>
+      </article>
+    {% endfor %}
+  </section>
+
+  <!-- Overlay Lightbox -->
+  <div id="lightbox" class="lb" aria-hidden="true">
+    <button class="lb-close" aria-label="Cerrar">×</button>
+    <img id="lb-img" alt="">
+  </div>
+
+  <!-- Script de zoom -->
+  <script>
+  (() => {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const closeBtn = lb.querySelector('.lb-close');
+
+    function open(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('show');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.catalog-grid .prod-card img').forEach(img => {
+      img.addEventListener('click', () => open(img.src, img.alt));
+    });
+
+    closeBtn.addEventListener('click', close);
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+  </script>
+
+{% endblock %}

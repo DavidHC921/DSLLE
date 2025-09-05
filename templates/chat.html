@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Chat · Mi Web{% endblock %}
+{% block content %}
+  <h1>Chat</h1>
+
+  <div id="chat-box" style="border:1px solid #ddd; padding:12px; height:240px; overflow:auto; border-radius:8px; margin-bottom:12px;">
+    <div><strong>Bot:</strong> ¡Hola! ¿En qué puedo ayudarte?</div>
+  </div>
+
+  <div style="display:flex; gap:8px;">
+    <input id="msg" type="text" placeholder="Escribe tu mensaje..." style="flex:1; padding:8px;">
+    <button id="send">Enviar</button>
+  </div>
+
+  <script>
+    const box = document.getElementById("chat-box");
+    const input = document.getElementById("msg");
+    const send = document.getElementById("send");
+
+    function pushLine(who, text) {
+      const d = document.createElement("div");
+      d.innerHTML = `<strong>${who}:</strong> ${text}`;
+      box.appendChild(d);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function enviar() {
+      const mensaje = input.value.trim();
+      if (!mensaje) return;
+      pushLine("Tú", mensaje);
+      input.value = "";
+
+      const r = await fetch("{{ url_for('api_chat') }}", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ mensaje })
+      });
+      const data = await r.json();
+      pushLine("Bot", data.respuesta);
+    }
+
+    send.addEventListener("click", enviar);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") enviar();
+    });
+  </script>
+
+  <a href="{{ url_for('home') }}">↩️ Volver al inicio</a>
+{% endblock %}
