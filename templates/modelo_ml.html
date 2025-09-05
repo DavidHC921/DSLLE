@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+{% block title %}Modelo ML · DSLLE{% endblock %}
+{% block content %}
+
+<section class="card" style="display:grid;gap:16px;grid-template-columns:1.1fr .9fr;">
+  <!-- Proceso -->
+  <div>
+    <h2 style="margin:0 0 8px;">Proceso (Google Colab)</h2>
+    <div id="stepTitle" class="kicker" style="margin-bottom:8px;">Paso 1 • Importar librerías</div>
+
+    <pre id="typewriter"
+         style="white-space:pre-wrap;background:#0b1020;color:#e6f1ff;padding:14px;border-radius:12px;min-height:300px;overflow:auto;box-shadow:var(--shadow);">
+    </pre>
+
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+      <button id="prevBtn" class="btn btn-ghost" disabled>Anterior</button>
+      <button id="nextBtn" class="btn btn-kiwi">Siguiente</button>
+      <button id="copyBtn" class="btn btn-ghost">Copiar código</button>
+      <a class="btn btn-ghost" target="_blank" rel="noopener"
+         href="https://colab.research.google.com/">Abrir en Colab</a>
+    </div>
+  </div>
+
+  <!-- Resultados -->
+  <div>
+    <h2 style="margin:0 0 8px;">Resultados</h2>
+    <div id="resultado" class="card" style="padding:14px;min-height:300px;">
+      <em>Avanza con “Siguiente” para ver las salidas de cada paso.</em>
+    </div>
+  </div>
+</section>
+
+<script>
+/* ====== Pasos con tu código real ====== */
+const steps = [
+  {
+    title: "Paso 1 • Importar librerías",
+    code: `# ==========================================
+# 1. Importar librerias
+# ==========================================
+import numpy as np # Operaciones Aritmeticas
+import pandas as pd # Tratamiento de datos
+import matplotlib.pyplot as plt # Graficos Nativos
+import seaborn as sns # Graficos Especializados`,
+    out: `<p>✅ Librerías importadas: <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>seaborn</code>.</p>`
+  },
+  {
+    title: "Paso 2 • Cargar datos",
+    code: `# ==========================================
+# 2. Cargar datos
+# ==========================================
+
+RUTA = "/content/dataset_cuidado_piel_masculina.csv"
+df = pd.read_csv(RUTA, encoding="utf-8")
+
+# Vista rápida de los datos como dimensiones del dataset y listado de columnas
+print("Filas, Columnas:", df.shape)
+print("\\nColumnas:")
+print(df.columns.tolist())
+
+print("\\nPrimeras 5 filas:")
+display(df.head())
+
+print("\\nUltimas 5 filas:")
+display(df.tail())`,
+    out: `<p>📦 Datos cargados desde <code>/content/dataset_cuidado_piel_masculina.csv</code>.<br>
+           Muestra: dimensiones, columnas, head() y tail().</p>`
+  },
+  {
+    title: "Paso 3 • Evaluación de calidad de datos",
+    code: `# ==========================================
+# 3. Evaluación de calidad de datos
+# ==========================================
+
+print("\\nCaracteristicas del DataFrame")
+print(df.info())
+
+print("\\nMedidas de Tendencia Central")
+print(df.describe())
+
+print("\\nMedidas de Tendencia Central -- COMPLETO --")
+print(df.describe(include="all"))
+
+print("\\nValores nulos por columna")
+print(df.isnull().sum())
+
+print("\\nNúmero de filas duplicadas:")
+print(df.duplicated().sum())`,
+    out: `<p>🩺 Reportes: <code>info()</code>, <code>describe()</code>, nulos por columna y duplicados.</p>`
+  },
+  {
+    title: "Paso 4 • Limpieza básica",
+    code: `# ==========================================
+# 4. Limpieza básica
+# ==========================================
+
+# Eliminar filas duplicadas
+df = df.drop_duplicates()
+
+# Imputar datos numercios con la mediana
+for col in ["edad", "estrato_socioeconomico", "tiene_hijos",
+            "usa_productos_skincare", "conocimiento_skincare",
+            "influencia_pareja", "presion_social_masculinidad"]:
+    df[col] = df[col].fillna(df[col].median())
+
+# Imputar datos categoricos con la moda
+for col in ["ciudad", "nivel_educativo", "estado_civil", "ocupacion",
+            "ingresos_mensuales", "tipo_piel", "exposicion_solar_trabajo",
+            "frecuencia_skincare", "productos_que_usa", "disposicion_pagar",
+            "canal_informacion", "problemas_piel"]:
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+# Pasar todo el texto a minúsculas
+for col in df.select_dtypes(include=["object"]).columns:
+    df[col] = df[col].str.lower()
+print("")`,
+    out: `<p>🧹 Limpieza: duplicados removidos, imputación (mediana/moda) y normalización a minúsculas.</p>`
+  },
+  {
+    title: "Paso 5 • Análisis univariado",
+    code: `# ==========================================
+# 5. Análisis Univariado
+# ==========================================
+print("<---Graficos de distribucion--->")
+print("")
+
+plt.figure(figsize=(5,5))
+plt.pie(
+    df["se_cuida_piel"].value_counts(),
+    labels=["No se cuidan", "Sí se cuidan"],
+    autopct="%1.1f%%",
+    colors=["#ff9999","#66b3ff"],
+    startangle=90
+)
+plt.title("Proporción de hombres que se cuidan vs no se cuidan")
+plt.show()
+print("")
+
+plt.figure(figsize=(6,4))
+ax = sns.countplot(x="usa_productos_skincare", data=df, palette="pastel")
+ax.set_xticklabels(["No usa productos", "Sí usa productos"])
+ax.set_ylabel("Número de personas")
+ax.set_xlabel("")
+ax.set_title("Uso de productos de skincare en hombres")
+plt.show()
+print("")
+
+plt.figure(figsize=(7,4))
+orden_frecuencia = ["nunca", "mensual", "semanal", "diario"]
+ax = sns.countplot(x="frecuencia_skincare", data=df, order=orden_frecuencia, palette="muted")
+ax.set_ylabel("Número de personas")
+ax.set_xlabel("Frecuencia declarada")
+ax.set_title("Frecuencia del cuidado de la piel en hombres")
+plt.show()
+print("")
+
+plt.figure(figsize=(7,4))
+sns.histplot(df["edad"], bins=15, color="skyblue", edgecolor="black")
+plt.xlabel("Edad")
+plt.ylabel("Número de personas")
+plt.title("Distribución de edades en la muestra")
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.show()
+print("")
+
+plt.figure(figsize=(7,4))
+ax = sns.countplot(x="estado_civil", data=df, palette="coolwarm")
+ax.set_ylabel("Número de personas")
+ax.set_xlabel("Estado civil")
+ax.set_title("Distribución de los hombres por estado civil")
+plt.xticks(rotation=20)
+plt.show()
+print("")
+
+plt.figure(figsize=(8,4))
+ax = sns.countplot(x="ingresos_mensuales", data=df, palette="viridis")
+ax.set_ylabel("Número de personas")
+ax.set_xlabel("Ingresos mensuales")
+ax.set_title("Distribución de hombres según ingresos mensuales")
+plt.xticks(rotation=30)
+plt.show()
+print("")`,
+    out: `<p>📊 Gráficos: pastel (cuidado), barras (uso de productos, frecuencia, estado civil, ingresos), histograma (edad).</p>`
+  },
+  {
+    title: "Paso 6 • Análisis bivariado",
+    code: `# ==========================================
+# 6. Análisis Bivariado
+# ==========================================
+
+plt.figure(figsize=(7,4))
+ax = sns.countplot(x="estado_civil", hue="se_cuida_piel", data=df, palette="Set2")
+ax.set_xlabel("Estado civil")
+ax.set_ylabel("Número de personas")
+ax.set_title("Estado civil y cuidado de la piel")
+ax.legend(title="¿Se cuida la piel?", labels=["No", "Sí"])
+plt.xticks(rotation=20)
+plt.show()
+print("")
+
+plt.figure(figsize=(8,4))
+ax = sns.countplot(x="ingresos_mensuales", hue="usa_productos_skincare", data=df, palette="coolwarm")
+ax.set_xlabel("Ingresos mensuales")
+ax.set_ylabel("Número de personas")
+ax.set_title("Ingresos mensuales y uso de productos de skincare")
+ax.legend(title="¿Usa productos?", labels=["No", "Sí"])
+plt.xticks(rotation=30)
+plt.show()
+print("")
+
+plt.figure(figsize=(7,4))
+sns.boxplot(x="se_cuida_piel", y="edad", data=df, palette="pastel")
+plt.xticks([0,1], ["No se cuidan", "Sí se cuidan"])
+plt.ylabel("Edad")
+plt.title("Edad y cuidado de la piel")
+plt.show()
+print("")`,
+    out: `<p>🔗 Relaciones: estado civil × cuidado, ingresos × uso de productos, edad × cuidado (boxplot).</p>`
+  },
+  {
+    title: "Paso 7 • Conclusiones",
+    code: `# ==========================================
+# 7. Conclusiones
+# ==========================================
+
+print("""
+✅ Conclusiones del análisis exploratorio:
+
+- Una proporción importante de hombres NO se cuida la piel (gráfico de pastel).
+- El estado civil y los ingresos muestran influencia: los casados y con mayores ingresos tienden a usar más productos.
+- La edad también marca diferencias: los más jóvenes muestran mayor disposición a cuidarse.
+- Persisten factores culturales (como prejuicios y presión social) que limitan el cuidado masculino de la piel.
+- Estos hallazgos respaldan la necesidad de iniciativas como la 'Red de Bienestar Masculino' y la marca DSLLE,
+  enfocadas en romper estigmas y fomentar hábitos de autocuidado en hombres.
+""")`,
+    out: `<ul>
+      <li>Proporción relevante no se cuida.</li>
+      <li>Estado civil e ingresos influyen.</li>
+      <li>Jóvenes con mayor disposición.</li>
+      <li>Factores culturales limitantes.</li>
+      <li>Respaldan iniciativas de la Red y DSLLE.</li>
+    </ul>`
+  }
+];
+
+/* ====== Typewriter ====== */
+const twEl  = document.getElementById("typewriter");
+const ttlEl = document.getElementById("stepTitle");
+const resEl = document.getElementById("resultado");
+const next  = document.getElementById("nextBtn");
+const prev  = document.getElementById("prevBtn");
+const copyB = document.getElementById("copyBtn");
+
+let idx = 0, i = 0, typing = false, timer = null;
+const speed = 12; // ms por caracter
+
+function renderStep(k) {
+  ttlEl.textContent = steps[k].title;
+  resEl.innerHTML = steps[k].out;
+  i = 0;
+  twEl.textContent = "";
+  typing = true;
+  clearTimeout(timer);
+  typeChunk();
+  prev.disabled = k === 0;
+  next.textContent = (k === steps.length - 1) ? "Reiniciar" : "Siguiente";
+}
+
+function typeChunk() {
+  const txt = steps[idx].code;
+  if (i <= txt.length && typing) {
+    twEl.textContent = txt.slice(0, i++);
+    timer = setTimeout(typeChunk, speed);
+  }
+}
+
+next.addEventListener("click", () => {
+  if (idx === steps.length - 1) { idx = 0; } else { idx++; }
+  renderStep(idx);
+});
+prev.addEventListener("click", () => {
+  if (idx > 0) idx--;
+  renderStep(idx);
+});
+copyB.addEventListener("click", async () => {
+  await navigator.clipboard.writeText(steps[idx].code);
+  copyB.textContent = "Copiado ✓";
+  setTimeout(() => (copyB.textContent = "Copiar código"), 1200);
+});
+
+renderStep(idx);
+</script>
+
+{% endblock %}

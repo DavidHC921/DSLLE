@@ -34,6 +34,7 @@
       <a href="{{ url_for('catalogo') }}">Catálogo</a>
       <a href="{{ url_for('chat') }}">Chat</a>
       <a href="{{ url_for('contact') }}">Contáctenos</a>
+      <a id="menu-ml" href="{{ url_for('modelo_ml') }}">Modelo ML</a>
     </div>
 
     <!-- Carrito a la derecha con contador -->
@@ -152,5 +153,43 @@
 
   <!-- Scripts -->
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    <!-- Modal de bienvenida -->
+    <div id="welcomeModal" class="welcome-modal" aria-hidden="true">
+    <div class="welcome-content">
+        <img src="{{ url_for('static', filename='img/welcome-frame.png') }}" alt="Bienvenida DSLLE">
+        <button class="btn btn-kiwi" onclick="closeWelcome()">Entrar</button>
+    </div>
+    </div>
+
+<script>
+    // Mostrar modal solo si estamos en la ruta Home
+    window.addEventListener('load', () => {
+    if (window.location.pathname === "/") {
+        document.getElementById("welcomeModal").style.display = "flex";
+    }
+    });
+
+  // Cerrar modal + mostrar guía hacia "Modelo ML"
+  function closeWelcome() {
+    document.getElementById('welcomeModal').style.display = 'none';
+
+    const target = document.getElementById('menu-ml');
+    if (target) {
+      const arrow = document.createElement('div');
+      arrow.className = 'guide-arrow';
+      arrow.textContent = '⬆️ Ingresa Primero Aqui! 😊🥝💚: Modelo ML';
+      document.body.appendChild(arrow);
+
+      const rect = target.getBoundingClientRect();
+      arrow.style.position = 'absolute';
+      arrow.style.left = rect.left + 'px';
+      arrow.style.top = (rect.bottom + 8) + 'px';
+
+      // (Opcional) que se oculte solo después de 6s
+      setTimeout(() => arrow.remove(), 6000);
+    }
+  }
+</script>
 </body>
 </html>

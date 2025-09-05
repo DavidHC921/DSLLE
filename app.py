@@ -198,5 +198,10 @@ def contact():
 
     return render_template("contact.html", cart_count=_cart_count())
 
+@app.route("/modelo-ml")
+def modelo_ml():
+    # vista placeholder; luego la llenamos
+    return render_template("modelo_ml.html", cart_count=_cart_count())
+
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=5000)
