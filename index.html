@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Inicio · DSLLE{% endblock %}
+{% block content %}
+
+  <!-- ===== Carrusel de Banners (va ANTES del HERO) ===== -->
+  <section class="carousel card" aria-label="Promociones destacadas">
+    <button class="car-btn prev" aria-label="Anterior">‹</button>
+
+    <div class="car-viewport">
+      <div class="car-track">
+        <div class="car-slide">
+          <img src="{{ url_for('static', filename='img/banners/1.jpg') }}" alt="Promo 1">
+        </div>
+        <div class="car-slide">
+          <img src="{{ url_for('static', filename='img/banners/2.jpg') }}" alt="Promo 2">
+        </div>
+        <div class="car-slide">
+          <img src="{{ url_for('static', filename='img/banners/3.jpg') }}" alt="Promo 3">
+        </div>
+      </div>
+    </div>
+
+    <button class="car-btn next" aria-label="Siguiente">›</button>
+
+    <div class="car-dots" role="tablist" aria-label="Paginación">
+      <button role="tab" aria-label="Ir al banner 1" data-to="0" class="is-active"></button>
+      <button role="tab" aria-label="Ir al banner 2" data-to="1"></button>
+      <button role="tab" aria-label="Ir al banner 3" data-to="2"></button>
+    </div>
+  </section>
+  <!-- ===== /Carrusel ===== -->
+  <br>
+  <!-- HERO (imagen izq, texto der) -->
+  <section class="card hero">
+    <!-- Columna izquierda -->
+    <div class="media">
+      <img src="{{ url_for('static', filename='img/portafolio.jpg') }}" alt="Logo Kiwi">
+    </div>
+    <!-- Columna derecha -->
+    <div class="hero-text">
+      <h1 class="center-desktop">Aromas memorables, duraderos y con ingredientes de alta calidad</h1>
+      <p class="center-desktop">
+        Explora nuestra selección diseñada para el bienestar masculino.
+        Encuentra tu estilo con un toque fresco de <strong>verde Kiwi</strong>.
+      </p>
+
+      <div class="hero-cta center-desktop">
+        <a class="btn btn-kiwi" href="{{ url_for('catalogo') }}">Ver catálogo</a>
+        <a class="btn btn-ghost" href="{{ url_for('about') }}">Conócenos</a>
+      </div>
+
+      <!-- Categorías -->
+      <div class="cats cats--center">
+        <a href="{{ url_for('catalogo') }}">Protección Solar</a>
+        <a href="{{ url_for('catalogo') }}">Tratamiento Facial</a>
+        <a href="{{ url_for('catalogo') }}">Cuidado Personal</a>
+        <a href="{{ url_for('catalogo') }}">Maquillaje</a>
+        <a href="{{ url_for('catalogo') }}">Perfumes</a>
+        <a href="{{ url_for('catalogo') }}">Accesorios</a>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
