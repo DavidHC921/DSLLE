@@ -51,7 +51,7 @@ def home():
 @app.route("/about")
 def about():
     # Links que usaste en Colab
-    link_word = "https://docs.google.com/document/d/1IosFVGliLpAFxPALyqfH2K0PSr4ZLZ8s/edit?usp=drive_link&ouid=117299082423511242657&rtpof=true&sd=true"
+    link_word = "https://docs.google.com/document/d/1TuZWbwD3CI-J5NRNt1xsmDwDykqynNcaxprjtP55oh0/edit?usp=sharing"
     link_ppt  = "https://gamma.app/docs/ALPINITO-DE-KIWI-COMPANY-PRESENTA-9juy0hrw3yf173t"
     return render_template("about.html", link_word=link_word, link_ppt=link_ppt, cart_count=_cart_count())
 
