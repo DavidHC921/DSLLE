@@ -52,7 +52,7 @@ def home():
 def about():
     # Links que usaste en Colab
     link_word = "https://docs.google.com/document/d/1TuZWbwD3CI-J5NRNt1xsmDwDykqynNcaxprjtP55oh0/edit?usp=sharing"
-    link_ppt  = "https://gamma.app/docs/ALPINITO-DE-KIWI-COMPANY-PRESENTA-9juy0hrw3yf173t"
+    link_ppt  = "https://docs.google.com/presentation/d/1jVTFjlSIlCM7GrNxhs0M6ptI6PUIEDEa/edit?usp=sharing&ouid=117299082423511242657&rtpof=true&sd=true"
     return render_template("about.html", link_word=link_word, link_ppt=link_ppt, cart_count=_cart_count())
 
 # --- CATÁLOGO: PDF (tu ruta original, intacta) ---

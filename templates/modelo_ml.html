@@ -64,7 +64,7 @@ display(df.head())
 print("\\nUltimas 5 filas:")
 display(df.tail())`,
     out: `<p>📦 Datos cargados desde <code>/content/dataset_cuidado_piel_masculina.csv</code>.<br>
-           Muestra: dimensiones, columnas, head() y tail().</p>`
+           Muestra: dimensiones, columnas,con head() vemos las primeras 5 filas y con tail() las 5 últimas.</p>`
   },
   {
     title: "Paso 3 • Evaluación de calidad de datos",
@@ -86,7 +86,7 @@ print(df.isnull().sum())
 
 print("\\nNúmero de filas duplicadas:")
 print(df.duplicated().sum())`,
-    out: `<p>🩺 Reportes: <code>info()</code>, <code>describe()</code>, nulos por columna y duplicados.</p>`
+    out: `<p>🩺 Calidad de los datos: <code>info()</code>, <code>describe()</code>, nulos por columna y duplicados.</p>`
   },
   {
     title: "Paso 4 • Limpieza básica",
@@ -215,7 +215,7 @@ plt.ylabel("Edad")
 plt.title("Edad y cuidado de la piel")
 plt.show()
 print("")`,
-    out: `<p>🔗 Relaciones: estado civil × cuidado, ingresos × uso de productos, edad × cuidado (boxplot).</p>`
+    out: `<p>🔗 Relaciones con 2 variables: estado civil × cuidado, ingresos × uso de productos, edad × cuidado (boxplot).</p>`
   },
   {
     title: "Paso 7 • Conclusiones",
