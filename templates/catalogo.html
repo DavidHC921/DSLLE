@@ -9,6 +9,8 @@
       <a class="btn btn-ghost" href="{{ url_for('catalogo_generar') }}">Generar PDF</a>
       <a class="btn btn-kiwi" href="{{ url_for('catalogo_export_excel') }}">Exportar a Excel</a>
       <a class="btn btn-ghost" href="{{ url_for('cart_reset') }}">🧹</a>
+      <!-- NUEVO: botón Regalo -->
+      <a id="btn-regalo" class="btn btn-ghost" href="#">🎁 Regalo</a>
     </div>
   </header>
 
@@ -32,14 +34,26 @@
     {% endfor %}
   </section>
 
-  <!-- Overlay Lightbox -->
+  <!-- Overlay Lightbox (imágenes) -->
   <div id="lightbox" class="lb" aria-hidden="true">
     <button class="lb-close" aria-label="Cerrar">×</button>
     <img id="lb-img" alt="">
   </div>
 
-  <!-- Script de zoom -->
+  <!-- NUEVO: Modal de Video "Regalo" -->
+  <div id="giftbox" class="lb" aria-hidden="true">
+    <button class="lb-close" aria-label="Cerrar">×</button>
+    <video id="gift-video" class="gift-video" controls preload="metadata"
+           poster="{{ url_for('static', filename='img/kiwi-logo.svg') }}">
+      <!-- coloca tu archivo aquí -->
+      <source src="{{ url_for('static', filename='media/regalo.mp4') }}" type="video/mp4">
+      Tu navegador no soporta video HTML5.
+    </video>
+  </div>
+
+  <!-- Scripts -->
   <script>
+  // ===== Zoom imágenes (ya lo tenías) =====
   (() => {
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lb-img');
@@ -63,6 +77,33 @@
 
     closeBtn.addEventListener('click', close);
     lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  })();
+
+  // ===== NUEVO: Modal de video "Regalo" =====
+  (() => {
+    const giftbox = document.getElementById('giftbox');
+    const video = document.getElementById('gift-video');
+    const btn = document.getElementById('btn-regalo');
+    const closeBtn = giftbox.querySelector('.lb-close');
+
+    function open() {
+      giftbox.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      // empieza a reproducir si el navegador lo permite
+      if (video.paused) { video.play().catch(() => {}); }
+    }
+    function close() {
+      giftbox.classList.remove('show');
+      document.body.style.overflow = '';
+      video.pause();
+      // opcional: reset
+      // video.currentTime = 0;
+    }
+
+    btn.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    closeBtn.addEventListener('click', close);
+    giftbox.addEventListener('click', (e) => { if (e.target === giftbox) close(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
   })();
   </script>

@@ -406,3 +406,6 @@ main{margin-top:16px;}
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+
+/* Video dentro del modal */
+.gift-video{ max-width:90vw; max-height:85vh; border-radius:14px; background:#000; box-shadow:var(--shadow); }
